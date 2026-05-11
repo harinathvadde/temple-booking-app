@@ -8,11 +8,13 @@ const styles = {
     paddingBottom: "40px",
   },
   hero: {
-    height: "320px",
+    height: "420px",
     backgroundImage:
-      "linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/WhatsApp%20Image%202026-05-10%20at%2020.52.36.jpeg?raw=true')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+      "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/WhatsApp%20Image%202026-05-10%20at%2020.52.36.jpeg?raw=true')",
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#000",
+    backgroundPosition: "center top",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -20,12 +22,15 @@ const styles = {
     color: "white",
   },
   heroTitle: {
-    fontSize: "52px",
+    fontSize: "58px",
     fontWeight: "bold",
-    marginBottom: "10px",
+    marginBottom: "14px",
+    textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
   heroText: {
-    fontSize: "22px",
+    fontSize: "28px",
+    fontWeight: "600",
+    textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
   container: {
     maxWidth: "1200px",
@@ -87,6 +92,14 @@ export default function TempleBookingApp() {
   const [selectedDate, setSelectedDate] = useState("");
   const [poojaType, setPoojaType] = useState("Sri Rama Daily Pooja");
   const [message, setMessage] = useState("");
+  const [confirmedBookings, setConfirmedBookings] = useState([
+    {
+      familyName: 'హరినాథ్ కుటుంబం',
+      mobile: '6300770430',
+      selectedDate: '2026-05-11',
+      poojaType: 'శ్రీ రామ నిత్య పూజ',
+    },
+  ]);
 
   const templeWhatsAppNumber = "919652754858";
 
@@ -96,10 +109,10 @@ export default function TempleBookingApp() {
         <div>
           <div>
             <h1 style={styles.heroTitle}>
-              Sri Kodandaramalayam
+              శ్రీ కోదండరామాలయం
             </h1>
             <p style={styles.heroText}>
-              Bandakindapalli Daily Seva Booking
+              బండకిందపల్లి నిత్య సేవ బుకింగ్
             </p>
           </div>
         </div>
@@ -109,26 +122,26 @@ export default function TempleBookingApp() {
         <div style={styles.card}>
           <div className="mb-8">
             <div className="inline-block bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-semibold mb-4">
-              Temple Seva Registration
+              దేవాలయ సేవ నమోదు
             </div>
 
             <h2 className="text-3xl font-bold text-gray-800">
-              Book Your Family Seva
+              మీ కుటుంబ సేవ బుక్ చేసుకోండి
             </h2>
 
             <p className="text-gray-500 mt-2">
-              Select your seva date and confirm your booking instantly.
+              మీ సేవ తేదీని ఎంచుకుని వెంటనే బుకింగ్ నిర్ధారించండి.
             </p>
           </div>
 
           <div className="space-y-5">
             <div>
               <label className="block text-gray-700 font-semibold mb-2">
-                Family Head Name
+                కుటుంబ పెద్ద పేరు
               </label>
               <input
                 type="text"
-                placeholder="Enter your family name"
+                placeholder="మీ కుటుంబ పేరు నమోదు చేయండి"
                 value={familyName}
                 onChange={(e) => setFamilyName(e.target.value)}
                 style={styles.input}
@@ -137,11 +150,11 @@ export default function TempleBookingApp() {
 
             <div>
               <label className="block text-gray-700 font-semibold mb-2">
-                Mobile Number
+                మొబైల్ నంబర్
               </label>
               <input
                 type="tel"
-                placeholder="Enter mobile number"
+                placeholder="మొబైల్ నంబర్ నమోదు చేయండి"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
                 style={styles.input}
@@ -150,7 +163,7 @@ export default function TempleBookingApp() {
 
             <div>
               <label className="block text-gray-700 font-semibold mb-2">
-                Select Seva Date
+                సేవ తేదీ ఎంచుకోండి
               </label>
               <input
                 type="date"
@@ -162,32 +175,40 @@ export default function TempleBookingApp() {
 
             <div>
               <label className="block text-gray-700 font-semibold mb-2">
-                Seva Type
+                సేవ రకం
               </label>
               <select
                 value={poojaType}
                 onChange={(e) => setPoojaType(e.target.value)}
                 style={styles.input}
               >
-                <option>Sri Rama Daily Pooja</option>
-                <option>Kodandaramula Special Seva</option>
-                <option>Birthday Archana</option>
-                <option>Marriage Anniversary Pooja</option>
+                <option>శ్రీ రామ నిత్య పూజ</option>
+                <option>కోదండరాముల ప్రత్యేక సేవ</option>
+                <option>పుట్టినరోజు అర్చన</option>
+                <option>వివాహ వార్షికోత్సవ పూజ</option>
               </select>
             </div>
 
             <button
               onClick={() => {
                 if (!familyName || !mobile || !selectedDate) {
-                  setMessage("Please fill all details");
+                  setMessage("దయచేసి అన్ని వివరాలు నమోదు చేయండి");
                   return;
                 }
 
-                setMessage(
-                  `Booking Confirmed for ${familyName} on ${selectedDate}`
-                );
+                setMessage(`✅ ${familyName} గారి సేవ బుకింగ్ విజయవంతంగా నమోదు అయింది`);
 
-                const whatsappMessage = `🛕 Sri Kodandaramalayam Temple Booking %0A%0A✅ Booking Confirmed %0A%0A👨 Family Name: ${familyName}%0A📞 Mobile Number: ${mobile}%0A📅 Seva Date: ${selectedDate}%0A🙏 Seva Type: ${poojaType}%0A%0A📍 Temple: Sri Kodandaramalayam, Bandakindapalli%0A%0AThank you for booking seva.`;
+                setConfirmedBookings((prev) => [
+                  ...prev,
+                  {
+                    familyName,
+                    mobile,
+                    selectedDate,
+                    poojaType,
+                  },
+                ]);
+
+                const whatsappMessage = `🛕 శ్రీ కోదండరామాలయం Temple Booking %0A%0A✅ Booking Confirmed %0A%0A👨 Family Name: ${familyName}%0A📞 మొబైల్ నంబర్: ${mobile}%0A📅 Seva Date: ${selectedDate}%0A🙏 Seva Type: ${poojaType}%0A%0A📍 దేవాలయం: శ్రీ కోదండరామాలయం, Bandakindapalli%0A%0AThank you for booking seva.`;
 
                 window.open(
                   `https://wa.me/${templeWhatsAppNumber}?text=${whatsappMessage}`,
@@ -196,7 +217,7 @@ export default function TempleBookingApp() {
               }}
               style={styles.button}
             >
-              Confirm Seva Booking
+              సేవ బుకింగ్ నిర్ధారించండి
             </button>
 
             {message && (
@@ -210,48 +231,90 @@ export default function TempleBookingApp() {
         <div className="space-y-8">
           <div style={styles.card}>
             <h2 className="text-3xl font-bold text-orange-700 mb-6">
-              Temple Information
+              దేవాలయ సమాచారం
             </h2>
 
             <div className="space-y-4 text-gray-700 text-lg">
               <div style={styles.infoBox}>
-                Location: Bandakindapalli
+                ప్రాంతం: బండకిందపల్లి
               </div>
 
               <div style={styles.infoBox}>
-                Temple: Sri Kodandaramalayam
+                Temple: శ్రీ కోదండరామాలయం
               </div>
 
               <div style={styles.infoBox}>
-                Booking Type: Daily Family Seva
+                బుకింగ్ రకం: నిత్య కుటుంబ సేవ
               </div>
             </div>
           </div>
 
           <div style={styles.card}>
             <h2 className="text-3xl font-bold text-orange-700 mb-6">
-              Temple Rules
+              దేవాలయ నియమాలు
             </h2>
 
             <div className="space-y-4">
               <div style={styles.ruleBox}>
-                One seva date allowed per family.
+                ఒక కుటుంబానికి ఒక సేవ తేదీ మాత్రమే అనుమతి.
               </div>
 
               <div style={styles.ruleBox}>
-                First come first serve booking.
+                ముందుగా బుక్ చేసిన వారికి ముందుగా అవకాశం.
               </div>
 
               <div style={styles.ruleBox}>
-                WhatsApp confirmation available.
+                వాట్సాప్ నిర్ధారణ అందుబాటులో ఉంటుంది.
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div style={styles.card}>
+            <h2 style={{ fontSize: '32px', marginBottom: '20px', color: '#ea580c' }}>
+              నిర్ధారించబడిన సేవ బుకింగ్స్
+            </h2>
+
+            {confirmedBookings.length === 0 ? (
+              <div style={styles.infoBox}>
+                ఇంకా ఎలాంటి బుకింగ్స్ లేవు
+              </div>
+            ) : (
+              confirmedBookings.map((booking, index) => (
+                <div
+                  key={index}
+                  style={{
+                    background: '#fff7ed',
+                    padding: '18px',
+                    borderRadius: '16px',
+                    marginBottom: '15px',
+                    border: '1px solid #fdba74',
+                  }}
+                >
+                  <div style={{ fontSize: '20px', fontWeight: '700', color: '#c2410c', marginBottom: '10px' }}>
+                    📅 సేవ తేదీ: {booking.selectedDate}
+                  </div>
+
+                  <div style={{ marginBottom: '8px' }}>
+                    <b>👨 కుటుంబ పేరు:</b> {booking.familyName}
+                  </div>
+
+                  <div style={{ marginBottom: '8px' }}>
+                    <b>📞 మొబైల్:</b> {booking.mobile}
+                  </div>
+
+                  <div>
+                    <b>🙏 సేవ:</b> {booking.poojaType}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
       <div className="text-center py-10 text-gray-600 font-semibold text-lg">
-        Sri Kodandaramalayam Temple Seva Booking Portal
+        శ్రీ కోదండరామాలయం సేవ బుకింగ్ పోర్టల్
       </div>
     </div>
   );
