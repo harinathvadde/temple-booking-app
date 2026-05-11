@@ -29,13 +29,14 @@ const styles = {
     paddingBottom: "40px",
   },
   hero: {
-    height: "360px",
+    height: "520px",
     backgroundImage:
-      "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/WhatsApp%20Image%202026-05-10%20at%2020.52.36.jpeg?raw=true')",
+      "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/RAM.png?raw=true')",
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundColor: "#000",
     backgroundPosition: "center top",
+    position: 'relative',
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -43,13 +44,15 @@ const styles = {
     color: "white",
   },
   heroTitle: {
-    fontSize: "44px",
+    fontSize: "72px",
     fontWeight: "bold",
+    marginTop: "180px",
     marginBottom: "10px",
     textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
   heroText: {
-    fontSize: "20px",
+    fontSize: "28px",
+    color: '#ffffff',
     fontWeight: "600",
     textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
@@ -199,13 +202,17 @@ export default function TempleBookingApp() {
   return (
     <div style={styles.page}>
       <div style={styles.hero}>
+        
+
+        
+
         <div>
           <div>
             <h1 style={styles.heroTitle}>
               శ్రీ కోదండరామాలయం
             </h1>
             <p style={styles.heroText}>
-              బండకిందపల్లి నిత్య సేవ బుకింగ్
+              బండకిందపల్లి
             </p>
           </div>
         </div>
