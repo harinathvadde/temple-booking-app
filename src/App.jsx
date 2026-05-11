@@ -72,7 +72,7 @@ const styles = {
     background: "#fff7ed",
     padding: "14px",
     borderRadius: "14px",
-    marginBottom:: "15px",
+    marginBottom: "15px",
     color: "#444",
     fontWeight: "600",
   },
