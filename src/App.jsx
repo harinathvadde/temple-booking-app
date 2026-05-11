@@ -114,6 +114,7 @@ export default function TempleBookingApp() {
   const [poojaType, setPoojaType] = useState("Sri Rama Daily Pooja");
   const [message, setMessage] = useState("");
   const [showSplash, setShowSplash] = useState(true);
+  const [showBookingPage, setShowBookingPage] = useState(false);
 
   const [confirmedBookings, setConfirmedBookings] = useState([]);
 
@@ -138,32 +139,20 @@ export default function TempleBookingApp() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 5000);
-
-    const audio = new Audio(
-      'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=om-chanting-11091.mp3'
-    );
-
-    audio.volume = 0.6;
-
-    audio.play().catch(() => {
-      console.log('Autoplay blocked by browser');
-    });
-
-    return () => {
-      clearTimeout(timer);
-      audio.pause();
-    };
-  }, []);
-
   if (showSplash) {
+    setTimeout(() => {
+      setShowSplash(false);
+    }, 4000);
+
     return (
       <div
         style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
           height: '100vh',
+          zIndex: 9999,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -181,20 +170,14 @@ export default function TempleBookingApp() {
             letterSpacing: '4px',
             textShadow: '0 0 25px rgba(255,255,255,0.8)',
             marginBottom: '20px',
+            lineHeight: '1.4',
           }}
         >
           🌸🙏 WELCOME 🙏🌸
-        </div>
-
-        <div
-          style={{
-            fontSize: '28px',
-            color: '#ffedd5',
-          }}
-        >
+          <br />
           🛕 JAI SREE RAM 🛕
-          
-          
+          <br />
+          ✨🌺🚩🌺✨
         </div>
 
         <div
@@ -222,13 +205,104 @@ export default function TempleBookingApp() {
               శ్రీ కోదండరామాలయం
             </h1>
             <p style={styles.heroText}>
-              బండకిందపల్లి
+              బండకిందపల్లి నిత్య సేవ బుకింగ్
             </p>
           </div>
         </div>
       </div>
 
-      <div style={styles.container}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 20px 10px' }}>
+        <div style={styles.card}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '10px' }}>
+              <h2 style={{ fontSize: '32px', color: '#ea580c', margin: 0 }}>
+                సేవ బుకింగ్ క్యూ జాబితా
+              </h2>
+
+              <button
+                onClick={() => {
+                  setShowBookingPage(true);
+                }}
+                style={{
+                  background: 'linear-gradient(90deg,#f97316,#dc2626)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 22px',
+                  borderRadius: '12px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  fontSize: '16px',
+                }}
+              >
+                ➕ కొత్త బుకింగ్
+              </button>
+            </div>
+
+            {confirmedBookings.length === 0 ? (
+              <div style={styles.infoBox}>
+                ఇంకా ఎలాంటి బుకింగ్స్ లేవు
+              </div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table
+                  style={{
+                    width: '100%',
+                    borderCollapse: 'collapse',
+                    fontSize: '17px',
+                    background: 'white',
+                    borderRadius: '18px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <thead>
+                    <tr style={{ background: '#ea580c', color: 'white' }}>
+                      <th style={{ padding: '16px' }}>క్యూ</th>
+                      <th style={{ padding: '16px' }}>తేదీ</th>
+                      <th style={{ padding: '16px' }}>కుటుంబ పేరు</th>
+                      <th style={{ padding: '16px' }}>మొబైల్</th>
+                      <th style={{ padding: '16px' }}>సేవ</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {confirmedBookings.map((booking, index) => (
+                      <tr
+                        key={index}
+                        style={{
+                          textAlign: 'center',
+                          background: index % 2 === 0 ? '#fff7ed' : '#ffffff',
+                          borderBottom: '1px solid #fed7aa',
+                        }}
+                      >
+                        <td style={{ padding: '15px', fontWeight: '700', color: '#c2410c' }}>
+                          {index + 1}
+                        </td>
+
+                        <td style={{ padding: '15px', fontWeight: '600' }}>
+                          {booking.selectedDate}
+                        </td>
+
+                        <td style={{ padding: '15px', fontWeight: '600' }}>
+                          {booking.familyName}
+                        </td>
+
+                        <td style={{ padding: '15px' }}>
+                          {booking.mobile}
+                        </td>
+
+                        <td style={{ padding: '15px' }}>
+                          {booking.poojaType}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+        </div>
+      </div>
+
+      {showBookingPage && (
+      <div id="booking-section" style={styles.container}>
         <div style={styles.card}>
           <div style={{ marginBottom: '32px' }}>
             <div style={{ display: 'inline-block', background: '#ffedd5', color: '#c2410c', padding: '10px 18px', borderRadius: '999px', fontWeight: '600', marginBottom: '16px' }}>
@@ -383,48 +457,7 @@ export default function TempleBookingApp() {
           </div>
         </div>
       </div>
-
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-        <div style={styles.card}>
-            <h2 style={{ fontSize: '32px', marginBottom: '20px', color: '#ea580c' }}>
-              నిర్ధారించబడిన సేవ బుకింగ్స్
-            </h2>
-
-            {confirmedBookings.length === 0 ? (
-              <div style={styles.infoBox}>
-                ఇంకా ఎలాంటి బుకింగ్స్ లేవు
-              </div>
-            ) : (
-              confirmedBookings.map((booking, index) => (
-                <div
-                  key={index}
-                  style={{
-                    background: '#fff7ed',
-                    padding: '14px',
-                    borderRadius: '16px',
-                    marginBottom: '12px',
-                    border: '1px solid #fdba74',
-                  }}
-                >
-                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#c2410c', marginBottom: '10px' }}>
-                    📅 సేవ తేదీ: {booking.selectedDate}
-                  </div>
-
-                  <div style={{ marginBottom: '8px' }}>
-                    <b>👨 కుటుంబ పేరు:</b> {booking.familyName}
-                  </div>
-
-                  <div style={{ marginBottom: '8px' }}>
-                    <b>📞 మొబైల్:</b> {booking.mobile}
-                  </div>
-
-                  <div>
-                    <b>🙏 సేవ:</b> {booking.poojaType}
-                  </div>
-                </div>
-              ))
-            )}        </div>
-      </div>
+      )}
 
       <div style={{ textAlign: 'center', padding: '40px', color: '#666', fontWeight: '600', fontSize: '17px' }}>
         శ్రీ కోదండరామాలయం సేవ బుకింగ్ పోర్టల్
