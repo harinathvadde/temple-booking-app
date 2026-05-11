@@ -94,14 +94,27 @@ export default function TempleBookingApp() {
   const [message, setMessage] = useState("");
   const [showSplash, setShowSplash] = useState(true);
 
-  const [confirmedBookings, setConfirmedBookings] = useState([
-    {
-      familyName: 'హరినాథ్ కుటుంబం',
-      mobile: '6300770430',
-      selectedDate: '2026-05-11',
-      poojaType: 'శ్రీ రామ నిత్య పూజ',
-    },
-  ]);
+  const [confirmedBookings, setConfirmedBookings] = useState(() => {
+    const savedBookings = localStorage.getItem("templeBookings");
+
+    return savedBookings
+      ? JSON.parse(savedBookings)
+      : [
+          {
+            familyName: 'హరినాథ్ కుటుంబం',
+            mobile: '6300770430',
+            selectedDate: '2026-05-11',
+            poojaType: 'శ్రీ రామ నిత్య పూజ',
+          },
+        ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "templeBookings",
+      JSON.stringify(confirmedBookings)
+    );
+  }, [confirmedBookings]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -140,34 +153,40 @@ export default function TempleBookingApp() {
         }}
       >
         <div
-  style={{
-    fontSize: '72px',
-    fontWeight: 'bold',
-    letterSpacing: '4px',
-    textShadow: '0 0 25px rgba(255,255,255,0.8)',
-    marginBottom: '20px',
-    lineHeight: '1.4',
-  }}
->
-  🌸🙏 WELCOME 🙏🌸
-  <br />
-  🛕 JAI SREE RAM 🛕
-  <br />
-  ✨🌺🚩🌺✨
-</div>
+          style={{
+            fontSize: '72px',
+            fontWeight: 'bold',
+            letterSpacing: '4px',
+            textShadow: '0 0 25px rgba(255,255,255,0.8)',
+            marginBottom: '20px',
+          }}
+        >
+          🌸🙏 WELCOME 🙏🌸
+        </div>
 
-<div
-  style={{
-    fontSize: '28px',
-    color: '#ffedd5',
-    textShadow: '0 0 12px rgba(255,255,255,0.5)',
-    fontWeight: '600',
-  }}
->
-  🌸 శ్రీ కోదండరామాలయం 🌸
-  <br />
-  🚩 బండకిందపల్లి 🚩
-</div>
+        <div
+          style={{
+            fontSize: '28px',
+            color: '#ffedd5',
+          }}
+        >
+          🛕 JAI SREE RAM 🛕
+          
+          
+        </div>
+
+        <div
+          style={{
+            fontSize: '28px',
+            color: '#ffedd5',
+            textShadow: '0 0 12px rgba(255,255,255,0.5)',
+            fontWeight: '600',
+          }}
+        >
+          🌸 శ్రీ కోదండరామాలయం 🌸
+          <br />
+          🚩 బండకిందపల్లి 🚩
+        </div>
       </div>
     );
   }
