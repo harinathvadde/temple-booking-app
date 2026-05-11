@@ -4,11 +4,11 @@ const styles = {
   page: {
     minHeight: "100vh",
     background: "linear-gradient(135deg,#fff7ed,#ffedd5,#ffffff)",
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     paddingBottom: "40px",
   },
   hero: {
-    height: "420px",
+    height: "360px",
     backgroundImage:
       "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/WhatsApp%20Image%202026-05-10%20at%2020.52.36.jpeg?raw=true')",
     backgroundSize: "contain",
@@ -22,13 +22,13 @@ const styles = {
     color: "white",
   },
   heroTitle: {
-    fontSize: "58px",
+    fontSize: "44px",
     fontWeight: "bold",
-    marginBottom: "14px",
+    marginBottom: "10px",
     textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
   heroText: {
-    fontSize: "28px",
+    fontSize: "20px",
     fontWeight: "600",
     textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
@@ -37,49 +37,49 @@ const styles = {
     margin: "auto",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    gap: "30px",
+    gap: "24px",
     padding: "40px 20px",
   },
   card: {
     background: "white",
-    borderRadius: "30px",
-    padding: "30px",
+    borderRadius: "22px",
+    padding: "24px",
     boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
   },
   input: {
     width: "100%",
-    padding: "16px",
+    padding: "14px",
     borderRadius: "14px",
     border: "1px solid #fdba74",
     marginTop: "8px",
     marginBottom: "18px",
-    fontSize: "16px",
+    fontSize: "15px",
     boxSizing: "border-box",
   },
   button: {
     width: "100%",
-    padding: "16px",
+    padding: "14px",
     border: "none",
-    borderRadius: "16px",
+    borderRadius: "14px",
     background: "linear-gradient(90deg,#f97316,#ef4444)",
     color: "white",
-    fontSize: "18px",
+    fontSize: "16px",
     fontWeight: "bold",
     cursor: "pointer",
     marginTop: "10px",
   },
   infoBox: {
     background: "#fff7ed",
-    padding: "16px",
-    borderRadius: "16px",
-    marginBottom: "15px",
+    padding: "14px",
+    borderRadius: "14px",
+    marginBottom:: "15px",
     color: "#444",
     fontWeight: "600",
   },
   ruleBox: {
     background: "#f0fdf4",
-    padding: "16px",
-    borderRadius: "16px",
+    padding: "14px",
+    borderRadius: "14px",
     marginBottom: "15px",
     color: "#444",
     fontWeight: "600",
@@ -121,11 +121,11 @@ export default function TempleBookingApp() {
       <div style={styles.container}>
         <div style={styles.card}>
           <div style={{ marginBottom: '32px' }}>
-            <div style={{ display: 'inline-block', background: '#ffedd5', color: '#c2410c', padding: '10px 18px', borderRadius: '999px', fontWeight: '700', marginBottom: '16px' }}>
+            <div style={{ display: 'inline-block', background: '#ffedd5', color: '#c2410c', padding: '10px 18px', borderRadius: '999px', fontWeight: '600', marginBottom: '16px' }}>
               దేవాలయ సేవ నమోదు
             </div>
 
-            <h2 style={{ fontSize: '42px', fontWeight: '700', color: '#1f2937', marginBottom: '12px' }}>
+            <h2 style={{ fontSize: '26px', fontWeight: '600', color: '#1f2937', marginBottom: '12px' }}>
               మీ కుటుంబ సేవ బుక్ చేసుకోండి
             </h2>
 
@@ -136,7 +136,7 @@ export default function TempleBookingApp() {
 
           <div>
             <div>
-              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
+              <label style={{ display: 'block', color: '#374151', fontWeight: '600', marginBottom: '8px', fontSize: '18px' }}>
                 కుటుంబ పెద్ద పేరు
               </label>
               <input
@@ -149,7 +149,7 @@ export default function TempleBookingApp() {
             </div>
 
             <div>
-              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
+              <label style={{ display: 'block', color: '#374151', fontWeight: '600', marginBottom: '8px', fontSize: '18px' }}>
                 మొబైల్ నంబర్
               </label>
               <input
@@ -162,7 +162,7 @@ export default function TempleBookingApp() {
             </div>
 
             <div>
-              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
+              <label style={{ display: 'block', color: '#374151', fontWeight: '600', marginBottom: '8px', fontSize: '18px' }}>
                 సేవ తేదీ ఎంచుకోండి
               </label>
               <input
@@ -174,7 +174,7 @@ export default function TempleBookingApp() {
             </div>
 
             <div>
-              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
+              <label style={{ display: 'block', color: '#374151', fontWeight: '600', marginBottom: '8px', fontSize: '18px' }}>
                 సేవ రకం
               </label>
               <select
@@ -193,6 +193,17 @@ export default function TempleBookingApp() {
               onClick={() => {
                 if (!familyName || !mobile || !selectedDate) {
                   setMessage("దయచేసి అన్ని వివరాలు నమోదు చేయండి");
+                  return;
+                }
+
+                const alreadyBooked = confirmedBookings.find(
+                  (booking) => booking.selectedDate === selectedDate
+                );
+
+                if (alreadyBooked) {
+                  setMessage(
+                    `❌ ${selectedDate} తేదీ ఇప్పటికే ${alreadyBooked.familyName} గారి పేరుతో బుక్ అయింది`
+                  );
                   return;
                 }
 
@@ -221,7 +232,7 @@ export default function TempleBookingApp() {
             </button>
 
             {message && (
-              <div style={{ background: '#dcfce7', border: '1px solid #86efac', color: '#15803d', borderRadius: '16px', padding: '16px', fontWeight: '700', textAlign: 'center', marginTop: '16px' }}>
+              <div style={{ background: '#dcfce7', border: '1px solid #86efac', color: '#15803d', borderRadius: '16px', padding: '16px', fontWeight: '600', textAlign: 'center', marginTop: '16px' }}>
                 {message}
               </div>
             )}
@@ -230,7 +241,7 @@ export default function TempleBookingApp() {
 
         <div>
           <div style={styles.card}>
-            <h2 style={{ fontSize: '36px', fontWeight: '700', color: '#c2410c', marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', color: '#c2410c', marginBottom: '18px' }}>
               దేవాలయ సమాచారం
             </h2>
 
@@ -250,7 +261,7 @@ export default function TempleBookingApp() {
           </div>
 
           <div style={styles.card}>
-            <h2 style={{ fontSize: '36px', fontWeight: '700', color: '#c2410c', marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', color: '#c2410c', marginBottom: '18px' }}>
               దేవాలయ నియమాలు
             </h2>
 
@@ -287,13 +298,13 @@ export default function TempleBookingApp() {
                   key={index}
                   style={{
                     background: '#fff7ed',
-                    padding: '18px',
+                    padding: '14px',
                     borderRadius: '16px',
-                    marginBottom: '15px',
+                    marginBottom: '12px',
                     border: '1px solid #fdba74',
                   }}
                 >
-                  <div style={{ fontSize: '20px', fontWeight: '700', color: '#c2410c', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#c2410c', marginBottom: '10px' }}>
                     📅 సేవ తేదీ: {booking.selectedDate}
                   </div>
 
@@ -313,8 +324,8 @@ export default function TempleBookingApp() {
             )}        </div>
       </div>
 
-      <div style={{ textAlign: 'center', padding: '40px', color: '#666', fontWeight: '600', fontSize: '20px' }}>
-        శ్రీ కోదండరామాలయం
+      <div style={{ textAlign: 'center', padding: '40px', color: '#666', fontWeight: '600', fontSize: '17px' }}>
+        శ్రీ కోదండరామాలయం సేవ బుకింగ్ పోర్టల్
       </div>
     </div>
   );
