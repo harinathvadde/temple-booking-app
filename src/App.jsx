@@ -1,5 +1,26 @@
 import { useState, useEffect } from "react";
 
+import { initializeApp } from "firebase/app";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  onSnapshot,
+} from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD6hYDB9rSn-qpMTrvsB2iXhmxVGQ6qA-0",
+  authDomain: "temple-booking-app.firebaseapp.com",
+  projectId: "temple-booking-app",
+  storageBucket: "temple-booking-app.firebasestorage.app",
+  messagingSenderId: "348741909207",
+  appId: "1:348741909207:web:2306403ded051e1800ce92"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const styles = {
   page: {
     minHeight: "100vh",
@@ -94,27 +115,23 @@ export default function TempleBookingApp() {
   const [message, setMessage] = useState("");
   const [showSplash, setShowSplash] = useState(true);
 
-  const [confirmedBookings, setConfirmedBookings] = useState(() => {
-    const savedBookings = localStorage.getItem("templeBookings");
-
-    return savedBookings
-      ? JSON.parse(savedBookings)
-      : [
-          {
-            familyName: 'హరినాథ్ కుటుంబం',
-            mobile: '6300770430',
-            selectedDate: '2026-05-11',
-            poojaType: 'శ్రీ రామ నిత్య పూజ',
-          },
-        ];
-  });
+  const [confirmedBookings, setConfirmedBookings] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem(
-      "templeBookings",
-      JSON.stringify(confirmedBookings)
+    const unsubscribe = onSnapshot(
+      collection(db, "bookings"),
+      (snapshot) => {
+        const bookings = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setConfirmedBookings(bookings);
+      }
     );
-  }, [confirmedBookings]);
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -297,15 +314,12 @@ export default function TempleBookingApp() {
 
                 setMessage(`✅ ${familyName} గారి సేవ బుకింగ్ విజయవంతంగా నమోదు అయింది`);
 
-                setConfirmedBookings((prev) => [
-                  ...prev,
-                  {
-                    familyName,
-                    mobile,
-                    selectedDate,
-                    poojaType,
-                  },
-                ]);
+                addDoc(collection(db, "bookings"), {
+                  familyName,
+                  mobile,
+                  selectedDate,
+                  poojaType,
+                });
 
                 
               }}
