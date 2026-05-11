@@ -159,6 +159,7 @@ export default function TempleBookingApp() {
           top: 0,
           left: 0,
           width: '100%',
+          padding: window.innerWidth < 768 ? '20px' : '0px',
           height: '100vh',
           zIndex: 9999,
           display: 'flex',
@@ -173,24 +174,23 @@ export default function TempleBookingApp() {
       >
         <div
           style={{
-            fontSize: '72px',
+            fontSize: window.innerWidth < 768 ? '34px' : '72px',
             fontWeight: 'bold',
-            letterSpacing: '4px',
+            letterSpacing: window.innerWidth < 768 ? '1px' : '4px',
             textShadow: '0 0 25px rgba(255,255,255,0.8)',
-            marginBottom: '20px',
-            lineHeight: '1.4',
+            marginBottom: window.innerWidth < 768 ? '12px' : '20px',
+            lineHeight: window.innerWidth < 768 ? '1.6' : '1.4',
           }}
         >
-          🌸🙏 WELCOME 🙏🌸
+          🙏 WELCOME 🙏
           <br />
-          🛕 JAI SREE RAM 🛕
+          🛕🚩 జై శ్రీరామ్ 🚩🛕
           <br />
-          ✨🌺🚩🌺✨
         </div>
 
         <div
           style={{
-            fontSize: '28px',
+            fontSize: window.innerWidth < 768 ? '18px' : '28px',
             color: '#ffedd5',
             textShadow: '0 0 12px rgba(255,255,255,0.5)',
             fontWeight: '600',
