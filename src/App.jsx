@@ -391,7 +391,27 @@ export default function TempleBookingApp() {
                   return;
                 }
 
-                setMessage(`✅ ${familyName} గారి సేవ బుకింగ్ విజయవంతంగా నమోదు అయింది`);
+                setMessage(
+                  `🙏 ${familyName} గారి సేవ బుకింగ్ విజయవంతంగా నమోదు అయింది.
+
+📅 సేవ తేదీ: ${selectedDate}
+
+🛕 శ్రీ కోదండరామాలయం, బండకిందపల్లి
+
+🔔 మీ సేవ తేదీకి ముందు గుర్తు పెట్టుకోండి.
+
+జై శ్రీరామ్ 🚩`
+                );
+
+                if ('Notification' in window) {
+                  Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                      new Notification('🛕 సేవ బుకింగ్ నిర్ధారణ', {
+                        body: `${familyName} గారి సేవ ${selectedDate} తేదీకి విజయవంతంగా బుక్ అయింది.`,
+                      });
+                    }
+                  });
+                }
 
                 addDoc(collection(db, "bookings"), {
                   familyName,
