@@ -29,13 +29,13 @@ const styles = {
     paddingBottom: "40px",
   },
   hero: {
-    height: "520px",
+    height: "560px",
     backgroundImage:
       "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/RAM.png?raw=true')",
-    backgroundSize: "contain",
+    backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundColor: "#000",
-    backgroundPosition: "center top",
+    backgroundPosition: "center center",
     position: 'relative',
     display: "flex",
     alignItems: "center",
