@@ -263,7 +263,7 @@ export default function TempleBookingApp() {
                   <thead>
                     <tr style={{ background: '#ea580c', color: 'white' }}>
                       <th style={{ padding: '16px' }}>క్యూ</th>
-                      <th style={{ padding: '16px' }}>తేదీ</th>
+                      <th style={{ padding: '16px' }}>తేదీ & రోజు</th>
                       <th style={{ padding: '16px' }}>కుటుంబ పేరు</th>
                       <th style={{ padding: '16px' }}>మొబైల్</th>
                       <th style={{ padding: '16px' }}>సేవ</th>
@@ -286,6 +286,12 @@ export default function TempleBookingApp() {
 
                         <td style={{ padding: '15px', fontWeight: '600' }}>
                           {booking.selectedDate}
+                          <br />
+                          <span style={{ color: '#ea580c', fontSize: '14px', fontWeight: '700' }}>
+                            {new Date(booking.selectedDate).toLocaleDateString('te-IN', {
+                              weekday: 'long',
+                            })}
+                          </span>
                         </td>
 
                         <td style={{ padding: '15px', fontWeight: '600' }}>
