@@ -29,7 +29,7 @@ const styles = {
     paddingBottom: "40px",
   },
   hero: {
-    height: "560px",
+    height: window.innerWidth < 768 ? "260px" : "560px",
     backgroundImage:
       "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://github.com/harinathvadde/temple-booking-app/blob/main/RAM.png?raw=true')",
     backgroundSize: "cover",
@@ -44,14 +44,14 @@ const styles = {
     color: "white",
   },
   heroTitle: {
-    fontSize: "72px",
+    fontSize: window.innerWidth < 768 ? "42px" : "72px",
     fontWeight: "bold",
-    marginTop: "180px",
+    marginTop: window.innerWidth < 768 ? "90px" : "180px",
     marginBottom: "10px",
     textShadow: "0 4px 10px rgba(0,0,0,0.7)",
   },
   heroText: {
-    fontSize: "28px",
+    fontSize: window.innerWidth < 768 ? "20px" : "28px",
     color: '#ffffff',
     fontWeight: "600",
     textShadow: "0 4px 10px rgba(0,0,0,0.7)",
@@ -60,7 +60,7 @@ const styles = {
     maxWidth: "1200px",
     margin: "auto",
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: window.innerWidth < 768 ? "1fr" : "1fr 1fr",
     gap: "24px",
     padding: "40px 20px",
   },
@@ -122,6 +122,14 @@ export default function TempleBookingApp() {
   const [confirmedBookings, setConfirmedBookings] = useState([]);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "bookings"),
       (snapshot) => {
@@ -143,9 +151,6 @@ export default function TempleBookingApp() {
   }, []);
 
   if (showSplash) {
-    setTimeout(() => {
-      setShowSplash(false);
-    }, 4000);
 
     return (
       <div
@@ -221,7 +226,7 @@ export default function TempleBookingApp() {
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 20px 10px' }}>
         <div style={styles.card}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '10px' }}>
-              <h2 style={{ fontSize: '32px', color: '#ea580c', margin: 0 }}>
+              <h2 style={{ fontSize: window.innerWidth < 768 ? '22px' : '32px', color: '#ea580c', margin: 0 }}>
                 సేవ బుకింగ్ క్యూ జాబితా
               </h2>
 
@@ -233,11 +238,11 @@ export default function TempleBookingApp() {
                   background: 'linear-gradient(90deg,#f97316,#dc2626)',
                   color: 'white',
                   border: 'none',
-                  padding: '12px 22px',
+                  padding: window.innerWidth < 768 ? '10px 16px' : '12px 22px',
                   borderRadius: '12px',
                   fontWeight: '700',
                   cursor: 'pointer',
-                  fontSize: '16px',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px',
                 }}
               >
                 ➕ కొత్త బుకింగ్
@@ -254,7 +259,7 @@ export default function TempleBookingApp() {
                   style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    fontSize: '17px',
+                    fontSize: window.innerWidth < 768 ? '13px' : '17px',
                     background: 'white',
                     borderRadius: '18px',
                     overflow: 'hidden',
@@ -262,11 +267,11 @@ export default function TempleBookingApp() {
                 >
                   <thead>
                     <tr style={{ background: '#ea580c', color: 'white' }}>
-                      <th style={{ padding: '16px' }}>క్యూ</th>
-                      <th style={{ padding: '16px' }}>తేదీ & రోజు</th>
-                      <th style={{ padding: '16px' }}>కుటుంబ పేరు</th>
-                      <th style={{ padding: '16px' }}>మొబైల్</th>
-                      <th style={{ padding: '16px' }}>సేవ</th>
+                      <th style={{ padding: window.innerWidth < 768 ? '10px' : '16px' }}>క్యూ</th>
+                      <th style={{ padding: window.innerWidth < 768 ? '10px' : '16px' }}>తేదీ & రోజు</th>
+                      <th style={{ padding: window.innerWidth < 768 ? '10px' : '16px' }}>కుటుంబ పేరు</th>
+                      <th style={{ padding: window.innerWidth < 768 ? '10px' : '16px' }}>మొబైల్</th>
+                      <th style={{ padding: window.innerWidth < 768 ? '10px' : '16px' }}>సేవ</th>
                     </tr>
                   </thead>
 
@@ -433,6 +438,10 @@ export default function TempleBookingApp() {
                   poojaType,
                 });
 
+                setFamilyName('');
+                setMobile('');
+                setSelectedDate('');
+
                 
               }}
               style={styles.button}
@@ -441,7 +450,7 @@ export default function TempleBookingApp() {
             </button>
 
             {message && (
-              <div style={{ background: '#dcfce7', border: '1px solid #86efac', color: '#15803d', borderRadius: '16px', padding: '16px', fontWeight: '600', textAlign: 'center', marginTop: '16px' }}>
+              <div style={{ background: '#dcfce7', border: '1px solid #86efac', color: '#15803d', borderRadius: '16px', padding: window.innerWidth < 768 ? '10px' : '16px', fontWeight: '600', textAlign: 'center', marginTop: '16px' }}>
                 {message}
               </div>
             )}
