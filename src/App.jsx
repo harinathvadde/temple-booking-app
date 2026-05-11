@@ -121,10 +121,15 @@ export default function TempleBookingApp() {
     const unsubscribe = onSnapshot(
       collection(db, "bookings"),
       (snapshot) => {
-        const bookings = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const today = new Date().toISOString().split('T')[0];
+
+        const bookings = snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+          .filter((booking) => booking.selectedDate >= today)
+          .sort((a, b) => a.selectedDate.localeCompare(b.selectedDate));
 
         setConfirmedBookings(bookings);
       }
