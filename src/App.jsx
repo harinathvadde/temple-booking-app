@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const styles = {
   page: {
@@ -92,6 +92,8 @@ export default function TempleBookingApp() {
   const [selectedDate, setSelectedDate] = useState("");
   const [poojaType, setPoojaType] = useState("Sri Rama Daily Pooja");
   const [message, setMessage] = useState("");
+  const [showSplash, setShowSplash] = useState(true);
+
   const [confirmedBookings, setConfirmedBookings] = useState([
     {
       familyName: 'హరినాథ్ కుటుంబం',
@@ -101,7 +103,74 @@ export default function TempleBookingApp() {
     },
   ]);
 
-  const templeWhatsAppNumber = "919652754858";
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5000);
+
+    const audio = new Audio(
+      'https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=om-chanting-11091.mp3'
+    );
+
+    audio.volume = 0.6;
+
+    audio.play().catch(() => {
+      console.log('Autoplay blocked by browser');
+    });
+
+    return () => {
+      clearTimeout(timer);
+      audio.pause();
+    };
+  }, []);
+
+  if (showSplash) {
+    return (
+      <div
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'radial-gradient(circle at center, #f97316 0%, #7c2d12 100%)',
+          color: 'white',
+          overflow: 'hidden',
+          textAlign: 'center',
+        }}
+      >
+        <div
+  style={{
+    fontSize: '72px',
+    fontWeight: 'bold',
+    letterSpacing: '4px',
+    textShadow: '0 0 25px rgba(255,255,255,0.8)',
+    marginBottom: '20px',
+    lineHeight: '1.4',
+  }}
+>
+  🌸🙏 WELCOME 🙏🌸
+  <br />
+  🛕 JAI SREE RAM 🛕
+  <br />
+  ✨🌺🚩🌺✨
+</div>
+
+<div
+  style={{
+    fontSize: '28px',
+    color: '#ffedd5',
+    textShadow: '0 0 12px rgba(255,255,255,0.5)',
+    fontWeight: '600',
+  }}
+>
+  🌸 శ్రీ కోదండరామాలయం 🌸
+  <br />
+  🚩 బండకిందపల్లి 🚩
+</div>
+      </div>
+    );
+  }
 
   return (
     <div style={styles.page}>
@@ -219,12 +288,7 @@ export default function TempleBookingApp() {
                   },
                 ]);
 
-                const whatsappMessage = `🛕 శ్రీ కోదండరామాలయం Temple Booking %0A%0A✅ Booking Confirmed %0A%0A👨 Family Name: ${familyName}%0A📞 మొబైల్ నంబర్: ${mobile}%0A📅 Seva Date: ${selectedDate}%0A🙏 Seva Type: ${poojaType}%0A%0A📍 దేవాలయం: శ్రీ కోదండరామాలయం, Bandakindapalli%0A%0AThank you for booking seva.`;
-
-                window.open(
-                  `https://wa.me/${templeWhatsAppNumber}?text=${whatsappMessage}`,
-                  "_blank"
-                );
+                
               }}
               style={styles.button}
             >
@@ -275,7 +339,7 @@ export default function TempleBookingApp() {
               </div>
 
               <div style={styles.ruleBox}>
-                వాట్సాప్ నిర్ధారణ అందుబాటులో ఉంటుంది.
+                బుక్ చేసిన తేదీ మళ్లీ అందుబాటులో ఉండదు.
               </div>
             </div>
           </div>
