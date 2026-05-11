@@ -112,7 +112,7 @@ export default function TempleBookingApp() {
               శ్రీ కోదండరామాలయం
             </h1>
             <p style={styles.heroText}>
-              బండకిందపల్లి నిత్య సేవ బుకింగ్
+              బండకిందపల్లి
             </p>
           </div>
         </div>
@@ -120,23 +120,23 @@ export default function TempleBookingApp() {
 
       <div style={styles.container}>
         <div style={styles.card}>
-          <div className="mb-8">
-            <div className="inline-block bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-semibold mb-4">
+          <div style={{ marginBottom: '32px' }}>
+            <div style={{ display: 'inline-block', background: '#ffedd5', color: '#c2410c', padding: '10px 18px', borderRadius: '999px', fontWeight: '700', marginBottom: '16px' }}>
               దేవాలయ సేవ నమోదు
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 style={{ fontSize: '42px', fontWeight: '700', color: '#1f2937', marginBottom: '12px' }}>
               మీ కుటుంబ సేవ బుక్ చేసుకోండి
             </h2>
 
-            <p className="text-gray-500 mt-2">
+            <p style={{ color: '#6b7280', marginTop: '8px', fontSize: '18px' }}>
               మీ సేవ తేదీని ఎంచుకుని వెంటనే బుకింగ్ నిర్ధారించండి.
             </p>
           </div>
 
-          <div className="space-y-5">
+          <div>
             <div>
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
                 కుటుంబ పెద్ద పేరు
               </label>
               <input
@@ -149,7 +149,7 @@ export default function TempleBookingApp() {
             </div>
 
             <div>
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
                 మొబైల్ నంబర్
               </label>
               <input
@@ -162,7 +162,7 @@ export default function TempleBookingApp() {
             </div>
 
             <div>
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
                 సేవ తేదీ ఎంచుకోండి
               </label>
               <input
@@ -174,7 +174,7 @@ export default function TempleBookingApp() {
             </div>
 
             <div>
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label style={{ display: 'block', color: '#374151', fontWeight: '700', marginBottom: '8px', fontSize: '18px' }}>
                 సేవ రకం
               </label>
               <select
@@ -221,20 +221,20 @@ export default function TempleBookingApp() {
             </button>
 
             {message && (
-              <div className="bg-green-100 border border-green-300 text-green-700 rounded-2xl p-4 font-semibold text-center">
+              <div style={{ background: '#dcfce7', border: '1px solid #86efac', color: '#15803d', borderRadius: '16px', padding: '16px', fontWeight: '700', textAlign: 'center', marginTop: '16px' }}>
                 {message}
               </div>
             )}
           </div>
         </div>
 
-        <div className="space-y-8">
+        <div>
           <div style={styles.card}>
-            <h2 className="text-3xl font-bold text-orange-700 mb-6">
+            <h2 style={{ fontSize: '36px', fontWeight: '700', color: '#c2410c', marginBottom: '24px' }}>
               దేవాలయ సమాచారం
             </h2>
 
-            <div className="space-y-4 text-gray-700 text-lg">
+            <div style={{ color: '#374151', fontSize: '18px' }}>
               <div style={styles.infoBox}>
                 ప్రాంతం: బండకిందపల్లి
               </div>
@@ -250,11 +250,11 @@ export default function TempleBookingApp() {
           </div>
 
           <div style={styles.card}>
-            <h2 className="text-3xl font-bold text-orange-700 mb-6">
+            <h2 style={{ fontSize: '36px', fontWeight: '700', color: '#c2410c', marginBottom: '24px' }}>
               దేవాలయ నియమాలు
             </h2>
 
-            <div className="space-y-4">
+            <div>
               <div style={styles.ruleBox}>
                 ఒక కుటుంబానికి ఒక సేవ తేదీ మాత్రమే అనుమతి.
               </div>
@@ -271,7 +271,8 @@ export default function TempleBookingApp() {
         </div>
       </div>
 
-      <div style={styles.card}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+        <div style={styles.card}>
             <h2 style={{ fontSize: '32px', marginBottom: '20px', color: '#ea580c' }}>
               నిర్ధారించబడిన సేవ బుకింగ్స్
             </h2>
@@ -309,12 +310,11 @@ export default function TempleBookingApp() {
                   </div>
                 </div>
               ))
-            )}
-          </div>
-        </div>
+            )}        </div>
+      </div>
 
-      <div className="text-center py-10 text-gray-600 font-semibold text-lg">
-        శ్రీ కోదండరామాలయం సేవ బుకింగ్ పోర్టల్
+      <div style={{ textAlign: 'center', padding: '40px', color: '#666', fontWeight: '600', fontSize: '20px' }}>
+        శ్రీ కోదండరామాలయం
       </div>
     </div>
   );
